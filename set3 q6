@@ -1,1 +1,39 @@
+bool isPalindrome(const string& str) {
+    int left = 0;
+    int right = str.length() - 1;
+    while (left < right) {
+        if (str[left] != str[right]) return false;
+        left++;
+        right--;
+    }
+    return true;
+}
 
+// Function to find minimum cyclic shifts to make a palindrome
+int minCyclicShiftsToPalindrome(string s) {
+    int n = s.length();
+    if (isPalindrome(s)) return 0;  // Already a palindrome
+    
+    // Try up to n cyclic shifts
+    for (int i = 1; i < n; i++) {
+        // Perform a cyclic shift
+        s = s.substr(1) + s[0];  // Move the first character to the end
+        if (isPalindrome(s)) {
+            return i;
+        }
+    }
+    
+    // If no palindrome found after all shifts
+    return -1;
+}
+
+int main() {
+    int T;
+    cin >> T;  // Number of test cases
+    while (T--) {
+        string s;
+        cin >> s;
+        cout << minCyclicShiftsToPalindrome(s) << endl;
+    }
+    return 0;
+}
