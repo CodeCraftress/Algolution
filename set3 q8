@@ -1,1 +1,35 @@
 
+int countCombinations(int sum, const vector<int>& coins) {
+    vector<int> dp(sum + 1, 0);
+    dp[0] = 1; // There is one way to make the sum 0 (using no coins)
+
+    // Update dp for each coin
+    for (int coin : coins) {
+        for (int i = coin; i <= sum; i++) {
+            dp[i] += dp[i - coin];
+        }
+    }
+
+    return dp[sum];
+}
+
+int main() {
+    vector<int> coins1 = {1, 2, 3};
+    int sum1 = 4;
+    cout << "Number of ways to make sum " << sum1 << ": " << countCombinations(sum1, coins1) << endl;
+
+    vector<int> coins2 = {2, 5, 3, 6};
+    int sum2 = 10;
+    cout << "Number of ways to make sum " << sum2 << ": " << countCombinations(sum2, coins2) << endl;
+
+    vector<int> coins3 = {10};
+    int sum3 = 10;
+    cout << "Number of ways to make sum " << sum3 << ": " << countCombinations(sum3, coins3) << endl;
+
+    vector<int> coins4 = {4};
+    int sum4 = 5;
+    cout << "Number of ways to make sum " << sum4 << ": " << countCombinations(sum4, coins4) << endl;
+
+    return 0;
+}
+
