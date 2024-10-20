@@ -1,20 +1,20 @@
 int findOROfAllSubarrays(const vector<int>& A) {
-    unordered_set<int> allOrs;  // To store distinct OR results
-    unordered_set<int> currentOrs;  // To store ORs of subarrays ending at current index
-    
+    unordered_set<int> allOrs; 
+    unordered_set<int> currentOrs; 
+
     for (int i = 0; i < A.size(); i++) {
         unordered_set<int> newOrs;
-        // OR current element with all previous subarray ORs
+        
         newOrs.insert(A[i]);
         for (int orVal : currentOrs) {
             newOrs.insert(orVal | A[i]);
         }
-        // Merge newOrs into allOrs and update currentOrs for next iteration
+        
         currentOrs = newOrs;
         allOrs.insert(newOrs.begin(), newOrs.end());
     }
 
-    // Compute OR of all distinct OR values
+    
     int result = 0;
     for (int orVal : allOrs) {
         result |= orVal;
@@ -24,11 +24,11 @@ int findOROfAllSubarrays(const vector<int>& A) {
 }
 
 int main() {
-    vector<int> A = {1, 4, 6};  // Example input
-    cout << "Result: " << findOROfAllSubarrays(A) << endl;  // Output: 7
+    vector<int> A = {1, 4, 6};  
+    cout << "Result: " << findOROfAllSubarrays(A) << endl;  
 
-    vector<int> B = {10, 100, 1000};  // Another example input
-    cout << "Result: " << findOROfAllSubarrays(B) << endl;  // Output: 1006
+    vector<int> B = {10, 100, 1000};  
+    cout << "Result: " << findOROfAllSubarrays(B) << endl;  
 
     return 0;
 }
