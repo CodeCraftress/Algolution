@@ -1,1 +1,33 @@
+bool checkValidString(string s) {
+    int min_open = 0; // Minimum number of open parentheses
+    int max_open = 0; // Maximum number of open parentheses
+    
+    for (char c : s) {
+        if (c == '(') {
+            min_open++;
+            max_open++;
+        } else if (c == ')') {
+            min_open--;
+            max_open--;
+        } else if (c == '*') {
+            min_open--; // Treat * as a closing parenthesis
+            max_open++; // Treat * as an opening parenthesis
+        }
+        
+        // If min_open is negative, we cannot have negative open parentheses
+        if (min_open < 0) min_open = 0;
 
+        // If max_open goes negative, we have more closing than opening brackets
+        if (max_open < 0) return false;
+    }
+    
+    // The string is valid if we have matched all open parentheses
+    return min_open == 0;
+}
+
+int main() {
+    string s;
+    cin >> s; // Input string containing parentheses and asterisks
+    cout << (checkValidString(s) ? "true" : "false") << endl;
+    return 0;
+}
