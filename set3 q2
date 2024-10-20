@@ -1,1 +1,28 @@
+int findSubarrayOR(const vector<int>& A) {
+    int n = A.size();
+    int result = 0;
 
+    // Iterate through each element
+    for (int i = 0; i < n; ++i) {
+        int currentOr = 0;
+
+        // Calculate the OR for subarrays starting from index i
+        for (int j = i; j < n; ++j) {
+            currentOr |= A[j]; // Update the current OR with A[j]
+            result |= currentOr; // Update the final result with the current OR
+        }
+    }
+
+    return result;
+}
+
+int main() {
+    // Example input
+    vector<int> A1 = {1, 4, 6};
+    cout << findSubarrayOR(A1) << endl; // Output: 7
+
+    vector<int> A2 = {10, 100, 1000};
+    cout << findSubarrayOR(A2) << endl; // Output: 1006
+
+    return 0;
+}
