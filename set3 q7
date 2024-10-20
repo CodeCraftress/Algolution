@@ -1,1 +1,84 @@
+string numberToText(int num) {
+    if (num == 1) return "one";
+    else if (num == 2) return "two";
+    else if (num == 3) return "three";
+    else if (num == 4) return "four";
+    else if (num == 5) return "five";
+    else if (num == 6) return "six";
+    else if (num == 7) return "seven";
+    else if (num == 8) return "eight";
+    else if (num == 9) return "nine";
+    else if (num == 10) return "ten";
+    else if (num == 100) return "hundred"; // Special case for 100
+    // You can extend this with more mappings (11, 12,... up to 100)
+    return "";
+}
 
+// Function to count vowels in the textual representation
+int countVowels(const string& word) {
+    int vowelCount = 0;
+    for (char ch : word) {
+        if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+            vowelCount++;
+        }
+    }
+    return vowelCount;
+}
+
+// Function to convert an integer to its textual representation (0-100)
+string numToText(int num) {
+    string below_twenty[] = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+                              "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", 
+                              "seventeen", "eighteen", "nineteen" };
+    string tens[] = { "", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+
+    if (num < 20) return below_twenty[num];
+    if (num < 100) return tens[num / 10] + (num % 10 != 0 ? below_twenty[num % 10] : "");
+    return "greater 100";
+}
+
+// Function to calculate number of pairs whose sum equals D
+int countPairsWithSumD(const vector<int>& arr, int D) {
+    unordered_map<int, int> freqMap;
+    int count = 0;
+
+    for (int num : arr) {
+        // Check if there exists a complement that when added gives D
+        if (freqMap.find(D - num) != freqMap.end()) {
+            count += freqMap[D - num];
+        }
+        // Increase the frequency of the current number
+        freqMap[num]++;
+    }
+
+    return count;
+}
+
+int main() {
+    int N;
+    cin >> N; // Number of elements in input
+    vector<int> arr(N);
+    
+    for (int i = 0; i < N; i++) {
+        cin >> arr[i];
+    }
+    
+    // Step 1: Convert each number to textual form and count the vowels
+    int totalVowels = 0;
+    for (int num : arr) {
+        string textRep = numberToText(num);
+        totalVowels += countVowels(textRep);
+    }
+
+    // Step 2: totalVowels is the digit D
+    int D = totalVowels;
+
+    // Step 3: Find all pairs whose sum equals D
+    int pairCount = countPairsWithSumD(arr, D);
+
+    // Step 4: Convert the pair count to textual representation and print
+    string result = numToText(pairCount);
+    cout << result << endl;
+
+    return 0;
+}
