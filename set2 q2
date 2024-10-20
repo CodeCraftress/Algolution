@@ -1,1 +1,20 @@
 
+
+int countInversions(vector<int>& arr) {
+    int inversions = 0;
+    for (int i = 0; i < arr.size(); i++) {
+        for (int j = i + 1; j < arr.size(); j++) {
+            if (arr[i] > arr[j]) {
+                inversions++;
+            }
+        }
+    }
+    return inversions;
+}
+
+int main() {
+    vector<int> arr = {7, 2, 6, 4};
+    cout << "Number of inversions: " << countInversions(arr) << endl;
+    return 0;
+}
+
