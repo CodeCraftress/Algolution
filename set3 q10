@@ -1,1 +1,17 @@
 
+int main()
+{
+    
+    int a[]={198,76,544,123,154,675};
+    int n=sizeof(a) / sizeof(a[0]);
+    sort(a,a+n);
+    int i=0,p=1,k=2;
+       while(k)
+       {
+         p*=a[i];
+         i++;
+         k--;
+       }
+       cout<<p;
+       return 0;
+}
