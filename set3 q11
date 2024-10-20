@@ -1,1 +1,38 @@
 
+string canFormPalindrome(const string& str) {
+    unordered_map<char, int> charCount;
+    
+    // Count the frequency of each character
+    for (char ch : str) {
+        charCount[ch]++;
+    }
+
+    int oddCount = 0;
+    
+    // Count how many characters have odd frequencies
+    for (auto it : charCount) {
+        if (it.second % 2 != 0) {
+            oddCount++;
+        }
+    }
+
+    // If more than one character has an odd frequency, return "No"
+    if (oddCount > 1) {
+        return "No";
+    }
+    
+    // Otherwise, return "Yes"
+    return "Yes";
+}
+
+int main() {
+    int t;
+    cin >> t;  // Number of test cases
+    while (t--) {
+        string str;
+        cin >> str;
+        cout << canFormPalindrome(str) << endl;
+    }
+    return 0;
+}
+
