@@ -1,26 +1,13 @@
-//review:
 vector<int> maxSlidingWindow(const vector<int>& nums, int K) {
-    vector<int> maxValues; // To store maximums for each window
-    deque<int> dq; // Deque to store indices of useful elements
+    vector<int> maxValues; 
 
-    for (int i = 0; i < nums.size(); ++i) {
-        // Remove indices that are out of the bounds of the current window
-        if (!dq.empty() && dq.front() < i - K + 1) {
-            dq.pop_front();
+    for (int i = 0; i <= nums.size() - K; ++i) {
+        int maxVal = nums[i]; 
+        // Check the current window for the maximum value
+        for (int j = 1; j < K; ++j) {
+            maxVal = max(maxVal, nums[i + j]); 
         }
-        
-        // Remove elements that are less than the current element
-        while (!dq.empty() && nums[dq.back()] <= nums[i]) {
-            dq.pop_back();
-        }
-
-        // Add current index to the deque
-        dq.push_back(i);
-
-        // Add the maximum of the current window to the result
-        if (i >= K - 1) {
-            maxValues.push_back(nums[dq.front()]);
-        }
+        maxValues.push_back(maxVal); 
     }
 
     return maxValues;
@@ -31,7 +18,7 @@ int main() {
     int K = 4;
     vector<int> result = maxSlidingWindow(arr, K);
 
-    // Print the result
+    
     for (int maxVal : result) {
         cout << maxVal << " ";
     }
@@ -39,4 +26,3 @@ int main() {
 
     return 0;
 }
-
