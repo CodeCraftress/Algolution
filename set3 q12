@@ -1,31 +1,38 @@
-int sumOfSquares(int n) {
-    int sum = 0;
-    while (n > 0) {
-        int digit = n % 10;
-        sum += digit * digit;
-        n /= 10;
+#include <iostream>
+#include <unordered_set>
+using namespace std;
+
+bool isHappyNumber(int n) {
+    unordered_set<int> seenSums;
+    
+    while (n != 1 && seenSums.find(n) == seenSums.end()) {
+        seenSums.insert(n);
+        int sum = 0;
+        
+        // Calculate the sum of the squares of digits
+        while (n != 0) {
+            int d = n % 10;
+            sum += d * d;
+            n /= 10;
+        }
+        
+        n = sum;
     }
-    return sum;
-}
-
-bool isHappy(int n) {
-    unordered_set<int> seen; 
-
-    while (n != 1 && seen.find(n) == seen.end()) {
-        seen.insert(n);  
-        n = sumOfSquares(n); 
-    }
-
-   
+    
+    // If n becomes 1, it is a happy number; otherwise, it is not.
     return n == 1;
 }
 
 int main() {
-    int n = 19;  
-    cout << "Is " << n << " a happy number? " << (isHappy(n) ? "True" : "False") << endl;
-
-    n = 2;  
-    cout << "Is " << n << " a happy number? " << (isHappy(n) ? "True" : "False") << endl;
-
+    int n;
+    cout << "Enter number to be checked: ";
+    cin >> n;
+    
+    if (isHappyNumber(n)) {
+        cout << n << " is a happy number." << endl;
+    } else {
+        cout << n << " is not a happy number." << endl;
+    }
+    
     return 0;
 }
